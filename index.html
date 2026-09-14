@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suarakan — Teks ke Suara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #1B1F2A;
+    --surface: #242938;
+    --surface-2: #2E3446;
+    --amber: #E8B75D;
+    --amber-dim: #B98F45;
+    --text: #EDEEF2;
+    --muted: #8B92A6;
+    --line: #3A4157;
+    --danger: #E4796B;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display:flex;
+    justify-content:center;
+    padding: 48px 20px 80px;
+  }
+  .wrap{
+    width:100%;
+    max-width: 640px;
+  }
+  header{
+    margin-bottom: 40px;
+  }
+  .eyebrow-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom: 18px;
+  }
+  .wave-mark{
+    display:flex;
+    align-items:flex-end;
+    gap:3px;
+    height: 20px;
+  }
+  .wave-mark span{
+    display:block;
+    width:3px;
+    background: var(--amber);
+    border-radius: 2px;
+    animation: idle-wave 2.4s ease-in-out infinite;
+  }
+  .wave-mark span:nth-child(1){height:40%; animation-delay:0s;}
+  .wave-mark span:nth-child(2){height:100%; animation-delay:.2s;}
+  .wave-mark span:nth-child(3){height:60%; animation-delay:.4s;}
+  .wave-mark span:nth-child(4){height:85%; animation-delay:.6s;}
+  .wave-mark span:nth-child(5){height:50%; animation-delay:.8s;}
+  @keyframes idle-wave{
+    0%,100%{ transform: scaleY(0.6); opacity:.6; }
+    50%{ transform: scaleY(1); opacity:1; }
+  }
+  h1{
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 1.2;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  header p{
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 50ch;
+  }
+  section{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px;
+    margin-bottom: 20px;
+  }
+  label{
+    display:block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  input[type="password"], select, textarea{
+    width:100%;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    border-radius: 9px;
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    outline: none;
+    transition: border-color .15s ease;
+  }
+  input[type="password"]:focus, select:focus, textarea:focus{
+    border-color: var(--amber);
+  }
+  textarea{
+    resize: vertical;
+    min-height: 160px;
+    line-height: 1.6;
+  }
+  .field{
+    margin-bottom: 18px;
+  }
+  .field:last-child{margin-bottom:0;}
+  .row{
+    display:flex;
+    gap:14px;
+  }
+  .row > div{flex:1;}
+  .hint{
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 7px;
+    line-height: 1.5;
+  }
+  .hint a{ color: var(--amber); }
+  button{
+    width:100%;
+    background: var(--amber);
+    color: #1B1200;
+    border: none;
+    border-radius: 9px;
+    padding: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s ease, transform .1s ease;
+  }
+  button:hover:not(:disabled){ background: #F0C476; }
+  button:active:not(:disabled){ transform: scale(0.99); }
+  button:disabled{
+    background: var(--surface-2);
+    color: var(--muted);
+    cursor: not-allowed;
+  }
+  .status{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 14px;
+    min-height: 18px;
+  }
+  .status.error{ color: var(--danger); }
+  .bars{
+    display:flex;
+    align-items:center;
+    gap:2px;
+    height:14px;
+  }
+  .bars span{
+    width:2px;
+    background: var(--amber);
+    border-radius:1px;
+    animation: idle-wave 1s ease-in-out infinite;
+  }
+  .bars span:nth-child(1){height:40%;animation-delay:0s;}
+  .bars span:nth-child(2){height:100%;animation-delay:.15s;}
+  .bars span:nth-child(3){height:65%;animation-delay:.3s;}
+  audio{
+    width:100%;
+    margin-top: 18px;
+    display:none;
+  }
+  .actions{
+    display:flex;
+    gap:10px;
+    margin-top: 12px;
+    display:none;
+  }
+  .actions a{
+    flex:1;
+    text-align:center;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    color: var(--text);
+    text-decoration:none;
+    font-size: 13.5px;
+  }
+  .actions a:hover{ border-color: var(--amber); }
+  .charcount{
+    text-align:right;
+    font-size:12px;
+    color: var(--muted);
+    margin-top:6px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow-row">
+      <div class="wave-mark"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+    <h1>Ubah paragraf jadi suara</h1>
+    <p>Tempelkan teks, pilih suara, dan dengarkan hasilnya — didukung oleh ElevenLabs. Kunci API kamu hanya dipakai di peramban ini dan tidak disimpan di server mana pun.</p>
+  </header>
+
+  <section>
+    <div class="field">
+      <label for="apiKey">Kunci API ElevenLabs</label>
+      <input type="password" id="apiKey" placeholder="sk_..." autocomplete="off">
+      <div class="hint">Belum punya? Ambil gratis di <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank" rel="noopener">elevenlabs.io</a> (tersedia kuota gratis bulanan).</div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="voiceSelect">Suara</label>
+        <select id="voiceSelect">
+          <option value="21m00Tcm4TlvDq8ikWAM">Rachel — jernih, netral</option>
+          <option value="AZnzlk1XvdvUeBnXmlld">Domi — energik</option>
+          <option value="EXAVITQu4vr4xnSDxMaL">Bella — lembut</option>
+          <option value="ErXwobaYiN019PkySvjV">Antoni — hangat, pria</option>
+          <option value="MF3mGyEYCl7XYWbV9V6O">Elli — muda</option>
+          <option value="TxGEqnHWrfWFTfGW9XjX">Josh — dalam, pria</option>
+        </select>
+        <div class="hint">Daftar suara dimuat otomatis dari akunmu setelah kunci API diisi.</div>
+      </div>
+      <div class="field">
+        <label for="modelSelect">Kualitas</label>
+        <select id="modelSelect">
+          <option value="eleven_multilingual_v2">Multibahasa (disarankan)</option>
+          <option value="eleven_turbo_v2_5">Turbo — lebih cepat</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="textInput">Paragraf</label>
+      <textarea id="textInput" placeholder="Tulis atau tempel paragraf di sini...">Halo, ini contoh paragraf yang akan diubah menjadi suara.</textarea>
+      <div class="charcount"><span id="charcount">0</span> karakter</div>
+    </div>
+
+    <button id="generateBtn">Ubah jadi Suara</button>
+    <div class="status" id="status"></div>
+    <audio id="player" controls></audio>
+    <div class="actions" id="actions">
+      <a id="downloadLink" download="suara.mp3">Unduh MP3</a>
+    </div>
+  </section>
+</div>
+
+<script>
+const apiKeyInput = document.getElementById('apiKey');
+const voiceSelect = document.getElementById('voiceSelect');
+const modelSelect = document.getElementById('modelSelect');
+const textInput = document.getElementById('textInput');
+const charcount = document.getElementById('charcount');
+const generateBtn = document.getElementById('generateBtn');
+const statusEl = document.getElementById('status');
+const player = document.getElementById('player');
+const actions = document.getElementById('actions');
+const downloadLink = document.getElementById('downloadLink');
+
+function updateCharcount(){
+  charcount.textContent = textInput.value.length;
+}
+textInput.addEventListener('input', updateCharcount);
+updateCharcount();
+
+function setStatus(msg, isError){
+  statusEl.className = 'status' + (isError ? ' error' : '');
+  statusEl.innerHTML = msg;
+}
+
+async function loadVoices(){
+  const key = apiKeyInput.value.trim();
+  if(!key) return;
+  try{
+    const res = await fetch('https://api.elevenlabs.io/v1/voices', {
+      headers: { 'xi-api-key': key }
+    });
+    if(!res.ok) return;
+    const data = await res.json();
+    if(data.voices && data.voices.length){
+      voiceSelect.innerHTML = '';
+      data.voices.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.voice_id;
+        opt.textContent = v.name;
+        voiceSelect.appendChild(opt);
+      });
+    }
+  }catch(e){
+    // Diam saja — daftar bawaan tetap dipakai jika gagal dimuat.
+  }
+}
+apiKeyInput.addEventListener('change', loadVoices);
+
+generateBtn.addEventListener('click', async () => {
+  const key = apiKeyInput.value.trim();
+  const text = textInput.value.trim();
+  const voiceId = voiceSelect.value;
+  const modelId = modelSelect.value;
+
+  if(!key){
+    setStatus('Isi kunci API ElevenLabs terlebih dahulu.', true);
+    return;
+  }
+  if(!text){
+    setStatus('Tulis paragraf yang ingin diubah menjadi suara.', true);
+    return;
+  }
+
+  generateBtn.disabled = true;
+  actions.style.display = 'none';
+  player.style.display = 'none';
+  setStatus('<div class="bars"><span></span><span></span><span></span></div> Membuat suara...', false);
+
+  try{
+    const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+      method: 'POST',
+      headers: {
+        'xi-api-key': key,
+        'Content-Type': 'application/json',
+        'Accept': 'audio/mpeg'
+      },
+      body: JSON.stringify({
+        text: text,
+        model_id: modelId,
+        voice_settings: { stability: 0.5, similarity_boost: 0.75 }
+      })
+    });
+
+    if(!res.ok){
+      let detail = '';
+      try{
+        const errJson = await res.json();
+        detail = errJson.detail && errJson.detail.message ? errJson.detail.message : JSON.stringify(errJson.detail || errJson);
+      }catch(e){
+        detail = `Kode status ${res.status}`;
+      }
+      throw new Error(detail);
+    }
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    player.src = url;
+    player.style.display = 'block';
+    downloadLink.href = url;
+    actions.style.display = 'flex';
+    setStatus('Selesai. Suara siap diputar atau diunduh.', false);
+  }catch(err){
+    setStatus('Gagal: ' + err.message + '. Jika ini masalah CORS/jaringan, coba jalankan dari server backend, bukan langsung dari peramban.', true);
+  }finally{
+    generateBtn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
