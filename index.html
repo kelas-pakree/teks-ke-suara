@@ -34,174 +34,70 @@
     width:100%;
     max-width: 640px;
   }
-  header{
-    margin-bottom: 40px;
-  }
-  .eyebrow-row{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom: 18px;
-  }
-  .wave-mark{
-    display:flex;
-    align-items:flex-end;
-    gap:3px;
-    height: 20px;
-  }
-  .wave-mark span{
-    display:block;
-    width:3px;
-    background: var(--amber);
-    border-radius: 2px;
-    animation: idle-wave 2.4s ease-in-out infinite;
-  }
+  header{ margin-bottom: 40px; }
+  .eyebrow-row{ display:flex; align-items:center; gap:10px; margin-bottom: 18px; }
+  .wave-mark{ display:flex; align-items:flex-end; gap:3px; height: 20px; }
+  .wave-mark span{ display:block; width:3px; background: var(--amber); border-radius: 2px; animation: idle-wave 2.4s ease-in-out infinite; }
   .wave-mark span:nth-child(1){height:40%; animation-delay:0s;}
   .wave-mark span:nth-child(2){height:100%; animation-delay:.2s;}
   .wave-mark span:nth-child(3){height:60%; animation-delay:.4s;}
   .wave-mark span:nth-child(4){height:85%; animation-delay:.6s;}
   .wave-mark span:nth-child(5){height:50%; animation-delay:.8s;}
-  @keyframes idle-wave{
-    0%,100%{ transform: scaleY(0.6); opacity:.6; }
-    50%{ transform: scaleY(1); opacity:1; }
+  @keyframes idle-wave{ 0%,100%{ transform: scaleY(0.6); opacity:.6; } 50%{ transform: scaleY(1); opacity:1; } }
+  h1{ font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 34px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; }
+  header p{ color: var(--muted); font-size: 15px; line-height: 1.6; margin: 0; max-width: 54ch; }
+  section{ background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 26px; margin-bottom: 20px; }
+  label{ display:block; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  input[type="password"], input[type="text"], select, textarea{
+    width:100%; background: var(--surface-2); border: 1px solid var(--line); color: var(--text);
+    border-radius: 9px; padding: 12px 14px; font-family: 'Inter', sans-serif; font-size: 14.5px;
+    outline: none; transition: border-color .15s ease;
   }
-  h1{
-    font-family: 'Source Serif 4', serif;
-    font-weight: 600;
-    font-size: 34px;
-    line-height: 1.2;
-    margin: 0 0 10px;
-    letter-spacing: -0.01em;
-  }
-  header p{
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.6;
-    margin: 0;
-    max-width: 50ch;
-  }
-  section{
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 26px;
-    margin-bottom: 20px;
-  }
-  label{
-    display:block;
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-  input[type="password"], select, textarea{
-    width:100%;
-    background: var(--surface-2);
-    border: 1px solid var(--line);
-    color: var(--text);
-    border-radius: 9px;
-    padding: 12px 14px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14.5px;
-    outline: none;
-    transition: border-color .15s ease;
-  }
-  input[type="password"]:focus, select:focus, textarea:focus{
-    border-color: var(--amber);
-  }
-  textarea{
-    resize: vertical;
-    min-height: 160px;
-    line-height: 1.6;
-  }
-  .field{
-    margin-bottom: 18px;
-  }
+  input[type="password"]:focus, input[type="text"]:focus, select:focus, textarea:focus{ border-color: var(--amber); }
+  textarea{ resize: vertical; min-height: 160px; line-height: 1.6; }
+  .field{ margin-bottom: 18px; }
   .field:last-child{margin-bottom:0;}
-  .row{
-    display:flex;
-    gap:14px;
-  }
+  .row{ display:flex; gap:14px; }
   .row > div{flex:1;}
-  .hint{
-    font-size: 12.5px;
-    color: var(--muted);
-    margin-top: 7px;
-    line-height: 1.5;
-  }
+  .hint{ font-size: 12.5px; color: var(--muted); margin-top: 7px; line-height: 1.5; }
   .hint a{ color: var(--amber); }
   button{
-    width:100%;
-    background: var(--amber);
-    color: #1B1200;
-    border: none;
-    border-radius: 9px;
-    padding: 14px;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .15s ease, transform .1s ease;
+    width:100%; background: var(--amber); color: #1B1200; border: none; border-radius: 9px;
+    padding: 14px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: background .15s ease, transform .1s ease;
   }
   button:hover:not(:disabled){ background: #F0C476; }
   button:active:not(:disabled){ transform: scale(0.99); }
-  button:disabled{
-    background: var(--surface-2);
-    color: var(--muted);
-    cursor: not-allowed;
-  }
-  .status{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size: 13.5px;
-    color: var(--muted);
-    margin-top: 14px;
-    min-height: 18px;
-  }
+  button:disabled{ background: var(--surface-2); color: var(--muted); cursor: not-allowed; }
+  .status{ display:flex; align-items:center; gap:10px; font-size: 13.5px; color: var(--muted); margin-top: 14px; min-height: 18px; }
   .status.error{ color: var(--danger); }
-  .bars{
-    display:flex;
-    align-items:center;
-    gap:2px;
-    height:14px;
-  }
-  .bars span{
-    width:2px;
-    background: var(--amber);
-    border-radius:1px;
-    animation: idle-wave 1s ease-in-out infinite;
-  }
+  .bars{ display:flex; align-items:center; gap:2px; height:14px; }
+  .bars span{ width:2px; background: var(--amber); border-radius:1px; animation: idle-wave 1s ease-in-out infinite; }
   .bars span:nth-child(1){height:40%;animation-delay:0s;}
   .bars span:nth-child(2){height:100%;animation-delay:.15s;}
   .bars span:nth-child(3){height:65%;animation-delay:.3s;}
-  audio{
-    width:100%;
-    margin-top: 18px;
-    display:none;
-  }
-  .actions{
-    display:flex;
-    gap:10px;
-    margin-top: 12px;
-    display:none;
-  }
-  .actions a{
-    flex:1;
-    text-align:center;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    color: var(--text);
-    text-decoration:none;
-    font-size: 13.5px;
-  }
+  audio{ width:100%; margin-top: 18px; display:none; }
+  .actions{ display:flex; gap:10px; margin-top: 12px; display:none; }
+  .actions a{ flex:1; text-align:center; padding: 10px; border-radius: 8px; border: 1px solid var(--line); color: var(--text); text-decoration:none; font-size: 13.5px; }
   .actions a:hover{ border-color: var(--amber); }
-  .charcount{
-    text-align:right;
-    font-size:12px;
-    color: var(--muted);
-    margin-top:6px;
-  }
+  .charcount{ text-align:right; font-size:12px; color: var(--muted); margin-top:6px; }
+  .tag-row{ display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .tag-btn{ width:auto; background: var(--surface-2); color: var(--text); border: 1px solid var(--line); border-radius: 20px; padding: 6px 13px; font-size: 12.5px; font-weight: 500; cursor:pointer; }
+  .tag-btn:hover{ border-color: var(--amber); color: var(--amber); }
+  code{ background: var(--surface-2); padding: 1px 6px; border-radius: 5px; font-size: 12px; }
+
+  .mode-toggle{ display:flex; gap:8px; margin-bottom: 20px; background: var(--surface); border:1px solid var(--line); border-radius:11px; padding:5px; }
+  .mode-btn{ flex:1; background:transparent; color:var(--muted); border:none; border-radius:8px; padding:11px; font-size:14px; font-weight:600; cursor:pointer; }
+  .mode-btn.active{ background: var(--amber); color:#1B1200; }
+  .mode-btn:not(.active):hover{ color: var(--text); }
+
+  .char-row{ display:flex; gap:8px; margin-bottom: 10px; align-items:center; }
+  .char-row .char-name{ flex: 0 0 34%; }
+  .char-row .char-voice{ flex: 1; }
+  .char-remove{ width:auto; flex:0 0 auto; background: var(--surface-2); color: var(--muted); border:1px solid var(--line); border-radius:8px; padding: 10px 13px; font-size:14px; }
+  .char-remove:hover{ border-color: var(--danger); color: var(--danger); }
+  .add-char-btn{ background: transparent; border: 1px dashed var(--line); color: var(--muted); margin-top: 4px; }
+  .add-char-btn:hover{ border-color: var(--amber); color: var(--amber); }
 </style>
 </head>
 <body>
@@ -211,8 +107,13 @@
       <div class="wave-mark"><span></span><span></span><span></span><span></span><span></span></div>
     </div>
     <h1>Ubah paragraf jadi suara</h1>
-    <p>Tempelkan teks, pilih suara, dan dengarkan hasilnya — didukung oleh ElevenLabs. Kunci API kamu hanya dipakai di peramban ini dan tidak disimpan di server mana pun.</p>
+    <p>Tempelkan teks atau tulis naskah percakapan, pilih suara Bahasa Indonesia, dan dengarkan hasilnya — didukung oleh ElevenLabs. Kunci API kamu hanya dipakai di peramban ini dan tidak disimpan di server mana pun.</p>
   </header>
+
+  <div class="mode-toggle">
+    <button type="button" class="mode-btn active" id="modeSingleBtn">Satu Suara</button>
+    <button type="button" class="mode-btn" id="modeConvoBtn">Percakapan (banyak tokoh)</button>
+  </div>
 
   <section>
     <div class="field">
@@ -221,39 +122,62 @@
       <div class="hint">Belum punya? Ambil gratis di <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank" rel="noopener">elevenlabs.io</a> (tersedia kuota gratis bulanan).</div>
     </div>
 
-    <div class="row">
+    <div class="field">
+      <label for="modelSelect">Kualitas</label>
+      <select id="modelSelect">
+        <option value="eleven_multilingual_v2">Multibahasa (disarankan)</option>
+        <option value="eleven_turbo_v2_5">Turbo — lebih cepat</option>
+        <option value="eleven_v3">Eleven v3 — bisa diberi emosi</option>
+      </select>
+    </div>
+
+    <!-- MODE: SATU SUARA -->
+    <div id="singleMode">
       <div class="field">
         <label for="voiceSelect">Suara</label>
-        <select id="voiceSelect">
-          <option value="21m00Tcm4TlvDq8ikWAM">Rachel — jernih, netral</option>
-          <option value="AZnzlk1XvdvUeBnXmlld">Domi — energik</option>
-          <option value="EXAVITQu4vr4xnSDxMaL">Bella — lembut</option>
-          <option value="ErXwobaYiN019PkySvjV">Antoni — hangat, pria</option>
-          <option value="MF3mGyEYCl7XYWbV9V6O">Elli — muda</option>
-          <option value="TxGEqnHWrfWFTfGW9XjX">Josh — dalam, pria</option>
+        <select id="voiceSelect" disabled>
+          <option value="">Masukkan kunci API untuk memuat suara</option>
         </select>
-        <div class="hint">Daftar suara dimuat otomatis dari akunmu setelah kunci API diisi.</div>
+        <div class="hint">Hanya suara Bahasa Indonesia yang ditampilkan, dimuat otomatis dari perpustakaan ElevenLabs setelah kunci API diisi.</div>
       </div>
+
       <div class="field">
-        <label for="modelSelect">Kualitas</label>
-        <select id="modelSelect">
-          <option value="eleven_multilingual_v2">Multibahasa (disarankan)</option>
-          <option value="eleven_turbo_v2_5">Turbo — lebih cepat</option>
-        </select>
+        <label for="textInput">Paragraf</label>
+        <textarea id="textInput" placeholder="Tulis atau tempel paragraf di sini...">Halo, ini contoh paragraf yang akan diubah menjadi suara.</textarea>
+        <div class="charcount"><span id="charcount">0</span> karakter</div>
+      </div>
+
+      <div class="field" id="emotionPanel" style="display:none;">
+        <label>Sisipkan tag emosi (khusus Eleven v3)</label>
+        <div class="tag-row" id="tagRow"></div>
+        <div class="hint">Klik salah satu untuk menyisipkan di posisi kursor, lalu edit sesuai kalimatnya. Contoh: <code>[bahagia] Akhirnya sampai juga!</code></div>
       </div>
     </div>
 
-    <div class="field">
-      <label for="textInput">Paragraf</label>
-      <textarea id="textInput" placeholder="Tulis atau tempel paragraf di sini...">Halo, ini contoh paragraf yang akan diubah menjadi suara.</textarea>
-      <div class="charcount"><span id="charcount">0</span> karakter</div>
+    <!-- MODE: PERCAKAPAN -->
+    <div id="convoMode" style="display:none;">
+      <div class="field">
+        <label>Tokoh &amp; suara</label>
+        <div id="charList"></div>
+        <button type="button" class="add-char-btn" id="addCharBtn">+ Tambah Tokoh</button>
+        <div class="hint">Nama tokoh dipakai untuk mencocokkan baris naskah di bawah (tidak peka huruf besar/kecil).</div>
+      </div>
+
+      <div class="field">
+        <label for="scriptInput">Naskah percakapan</label>
+        <textarea id="scriptInput" placeholder="Ani: Halo, apa kabar?
+Budi: Baik, kamu sendiri?">Ani: Halo, apa kabar hari ini?
+Budi: Baik sekali, terima kasih sudah bertanya.
+Ani: Senang mendengarnya!</textarea>
+        <div class="hint">Satu baris untuk satu ucapan, format: <code>Nama: isi dialog</code>. Jeda singkat otomatis ditambahkan di antar baris.</div>
+      </div>
     </div>
 
     <button id="generateBtn">Ubah jadi Suara</button>
     <div class="status" id="status"></div>
     <audio id="player" controls></audio>
     <div class="actions" id="actions">
-      <a id="downloadLink" download="suara.mp3">Unduh MP3</a>
+      <a id="downloadLink" download="suara.wav">Unduh Audio</a>
     </div>
   </section>
 </div>
@@ -263,101 +187,342 @@ const apiKeyInput = document.getElementById('apiKey');
 const voiceSelect = document.getElementById('voiceSelect');
 const modelSelect = document.getElementById('modelSelect');
 const textInput = document.getElementById('textInput');
+const scriptInput = document.getElementById('scriptInput');
 const charcount = document.getElementById('charcount');
 const generateBtn = document.getElementById('generateBtn');
 const statusEl = document.getElementById('status');
 const player = document.getElementById('player');
 const actions = document.getElementById('actions');
 const downloadLink = document.getElementById('downloadLink');
+const singleMode = document.getElementById('singleMode');
+const convoMode = document.getElementById('convoMode');
+const modeSingleBtn = document.getElementById('modeSingleBtn');
+const modeConvoBtn = document.getElementById('modeConvoBtn');
+const charList = document.getElementById('charList');
+const addCharBtn = document.getElementById('addCharBtn');
+const emotionPanel = document.getElementById('emotionPanel');
+const tagRow = document.getElementById('tagRow');
 
-function updateCharcount(){
-  charcount.textContent = textInput.value.length;
-}
+let currentMode = 'single';
+let indonesianVoices = []; // {id, name}
+
+function updateCharcount(){ charcount.textContent = textInput.value.length; }
 textInput.addEventListener('input', updateCharcount);
 updateCharcount();
+
+const EMOTION_TAGS = ['[bahagia]', '[sedih]', '[bersemangat]', '[marah]', '[berbisik]', '[tertawa]', '[menghela napas]', '[ragu-ragu]', '[lega]'];
+EMOTION_TAGS.forEach(tag => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'tag-btn';
+  btn.textContent = tag;
+  btn.addEventListener('click', () => {
+    const start = textInput.selectionStart;
+    const end = textInput.selectionEnd;
+    const before = textInput.value.slice(0, start);
+    const after = textInput.value.slice(end);
+    const insert = tag + ' ';
+    textInput.value = before + insert + after;
+    textInput.focus();
+    const newPos = start + insert.length;
+    textInput.setSelectionRange(newPos, newPos);
+    updateCharcount();
+  });
+  tagRow.appendChild(btn);
+});
+
+function toggleEmotionPanel(){
+  emotionPanel.style.display = (modelSelect.value === 'eleven_v3' && currentMode === 'single') ? 'block' : 'none';
+}
+modelSelect.addEventListener('change', toggleEmotionPanel);
+
+function setMode(mode){
+  currentMode = mode;
+  singleMode.style.display = mode === 'single' ? 'block' : 'none';
+  convoMode.style.display = mode === 'convo' ? 'block' : 'none';
+  modeSingleBtn.classList.toggle('active', mode === 'single');
+  modeConvoBtn.classList.toggle('active', mode === 'convo');
+  generateBtn.textContent = mode === 'single' ? 'Ubah jadi Suara' : 'Buat Percakapan';
+  actions.style.display = 'none';
+  player.style.display = 'none';
+  setStatus('', false);
+  toggleEmotionPanel();
+}
+modeSingleBtn.addEventListener('click', () => setMode('single'));
+modeConvoBtn.addEventListener('click', () => setMode('convo'));
 
 function setStatus(msg, isError){
   statusEl.className = 'status' + (isError ? ' error' : '');
   statusEl.innerHTML = msg;
 }
 
+function renderVoiceOptions(selectEl, keepValue){
+  const prev = keepValue !== undefined ? keepValue : selectEl.value;
+  selectEl.innerHTML = '';
+  if(!indonesianVoices.length){
+    selectEl.innerHTML = '<option value="">Belum ada suara dimuat</option>';
+    selectEl.disabled = true;
+    return;
+  }
+  indonesianVoices.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = v.id;
+    opt.textContent = v.name;
+    selectEl.appendChild(opt);
+  });
+  selectEl.disabled = false;
+  if(prev && indonesianVoices.some(v => v.id === prev)) selectEl.value = prev;
+}
+
+function refreshAllVoiceSelects(){
+  renderVoiceOptions(voiceSelect);
+  document.querySelectorAll('.char-voice').forEach(sel => renderVoiceOptions(sel));
+}
+
+function addCharacterRow(defaultName){
+  const row = document.createElement('div');
+  row.className = 'char-row';
+  const nameInput = document.createElement('input');
+  nameInput.type = 'text';
+  nameInput.className = 'char-name';
+  nameInput.placeholder = 'Nama tokoh';
+  if(defaultName) nameInput.value = defaultName;
+  const voiceSel = document.createElement('select');
+  voiceSel.className = 'char-voice';
+  const removeBtn = document.createElement('button');
+  removeBtn.type = 'button';
+  removeBtn.className = 'char-remove';
+  removeBtn.textContent = '✕';
+  removeBtn.addEventListener('click', () => row.remove());
+  row.appendChild(nameInput);
+  row.appendChild(voiceSel);
+  row.appendChild(removeBtn);
+  charList.appendChild(row);
+  renderVoiceOptions(voiceSel);
+}
+addCharacterRow('Ani');
+addCharacterRow('Budi');
+addCharBtn.addEventListener('click', () => addCharacterRow(''));
+
 async function loadVoices(){
   const key = apiKeyInput.value.trim();
   if(!key) return;
+
+  voiceSelect.disabled = true;
+  voiceSelect.innerHTML = '<option value="">Memuat suara Bahasa Indonesia...</option>';
+
+  const collected = new Map();
+
   try{
-    const res = await fetch('https://api.elevenlabs.io/v1/voices', {
-      headers: { 'xi-api-key': key }
-    });
-    if(!res.ok) return;
-    const data = await res.json();
-    if(data.voices && data.voices.length){
-      voiceSelect.innerHTML = '';
-      data.voices.forEach(v => {
-        const opt = document.createElement('option');
-        opt.value = v.voice_id;
-        opt.textContent = v.name;
-        voiceSelect.appendChild(opt);
+    const ownRes = await fetch('https://api.elevenlabs.io/v1/voices', { headers: { 'xi-api-key': key } });
+    if(ownRes.ok){
+      const ownData = await ownRes.json();
+      (ownData.voices || []).forEach(v => {
+        const lang = v.labels && (v.labels.language || v.labels.accent);
+        if(lang && String(lang).toLowerCase().includes('indo')){
+          collected.set(v.voice_id, v.name);
+        }
       });
     }
-  }catch(e){
-    // Diam saja — daftar bawaan tetap dipakai jika gagal dimuat.
+  }catch(e){ /* lanjut */ }
+
+  try{
+    const libRes = await fetch('https://api.elevenlabs.io/v1/shared-voices?language=id&page_size=100', { headers: { 'xi-api-key': key } });
+    if(libRes.ok){
+      const libData = await libRes.json();
+      (libData.voices || []).forEach(v => {
+        if(!v.language || v.language === 'id'){
+          const label = v.name + (v.accent ? ' — ' + v.accent : '');
+          collected.set(v.voice_id, label);
+        }
+      });
+    }
+  }catch(e){ /* lanjut */ }
+
+  indonesianVoices = Array.from(collected.entries()).map(([id, name]) => ({ id, name }));
+
+  if(indonesianVoices.length){
+    refreshAllVoiceSelects();
+  } else {
+    voiceSelect.innerHTML = '<option value="">Tidak ditemukan suara Bahasa Indonesia untuk kunci ini</option>';
+    document.querySelectorAll('.char-voice').forEach(sel => { sel.innerHTML = '<option value="">Tidak ada suara</option>'; sel.disabled = true; });
   }
 }
 apiKeyInput.addEventListener('change', loadVoices);
 
-generateBtn.addEventListener('click', async () => {
-  const key = apiKeyInput.value.trim();
+async function ttsRequest(key, voiceId, modelId, text){
+  const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+    method: 'POST',
+    headers: { 'xi-api-key': key, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg' },
+    body: JSON.stringify({ text: text, model_id: modelId, voice_settings: { stability: 0.5, similarity_boost: 0.75 } })
+  });
+  if(!res.ok){
+    let detail = '';
+    try{
+      const errJson = await res.json();
+      detail = errJson.detail && errJson.detail.message ? errJson.detail.message : JSON.stringify(errJson.detail || errJson);
+    }catch(e){ detail = `Kode status ${res.status}`; }
+    throw new Error(detail);
+  }
+  return await res.arrayBuffer();
+}
+
+function encodeWav(samples, sampleRate){
+  const buffer = new ArrayBuffer(44 + samples.length * 2);
+  const view = new DataView(buffer);
+  function writeString(offset, str){ for(let i=0;i<str.length;i++) view.setUint8(offset+i, str.charCodeAt(i)); }
+  writeString(0, 'RIFF');
+  view.setUint32(4, 36 + samples.length * 2, true);
+  writeString(8, 'WAVE');
+  writeString(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  writeString(36, 'data');
+  view.setUint32(40, samples.length * 2, true);
+  let offset = 44;
+  for(let i=0;i<samples.length;i++, offset+=2){
+    const s = Math.max(-1, Math.min(1, samples[i]));
+    view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+  }
+  return new Blob([view], { type: 'audio/wav' });
+}
+
+function toMono(audioBuffer){
+  if(audioBuffer.numberOfChannels === 1) return audioBuffer.getChannelData(0);
+  const len = audioBuffer.length;
+  const out = new Float32Array(len);
+  for(let ch=0; ch<audioBuffer.numberOfChannels; ch++){
+    const data = audioBuffer.getChannelData(ch);
+    for(let i=0;i<len;i++) out[i] += data[i] / audioBuffer.numberOfChannels;
+  }
+  return out;
+}
+
+async function decodeToMono(arrayBuffer, audioCtx, targetRate){
+  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer.slice(0));
+  let mono = toMono(audioBuffer);
+  if(audioBuffer.sampleRate !== targetRate){
+    const ratio = targetRate / audioBuffer.sampleRate;
+    const newLen = Math.round(mono.length * ratio);
+    const resampled = new Float32Array(newLen);
+    for(let i=0;i<newLen;i++){
+      const srcIdx = i / ratio;
+      const i0 = Math.floor(srcIdx);
+      const i1 = Math.min(i0+1, mono.length-1);
+      const frac = srcIdx - i0;
+      resampled[i] = mono[i0] * (1-frac) + mono[i1] * frac;
+    }
+    mono = resampled;
+  }
+  return mono;
+}
+
+function parseScript(){
+  const lines = scriptInput.value.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  const parsed = [];
+  for(const line of lines){
+    const idx = line.indexOf(':');
+    if(idx === -1){ throw new Error(`Baris ini tidak berformat "Nama: dialog" — "${line}"`); }
+    const speaker = line.slice(0, idx).trim();
+    const text = line.slice(idx+1).trim();
+    if(!speaker || !text){ throw new Error(`Baris ini tidak lengkap — "${line}"`); }
+    parsed.push({ speaker, text });
+  }
+  return parsed;
+}
+
+function getCharacterMap(){
+  const map = new Map();
+  document.querySelectorAll('.char-row').forEach(row => {
+    const name = row.querySelector('.char-name').value.trim();
+    const voiceId = row.querySelector('.char-voice').value;
+    if(name && voiceId) map.set(name.toLowerCase(), { name, voiceId });
+  });
+  return map;
+}
+
+async function generateSingle(key, modelId){
   const text = textInput.value.trim();
   const voiceId = voiceSelect.value;
-  const modelId = modelSelect.value;
+  if(!voiceId){ setStatus('Pilih suara Bahasa Indonesia terlebih dahulu (masukkan kunci API agar daftar termuat).', true); return; }
+  if(!text){ setStatus('Tulis paragraf yang ingin diubah menjadi suara.', true); return; }
 
-  if(!key){
-    setStatus('Isi kunci API ElevenLabs terlebih dahulu.', true);
-    return;
+  setStatus('<div class="bars"><span></span><span></span><span></span></div> Membuat suara...', false);
+  const buf = await ttsRequest(key, voiceId, modelId, text);
+  const blob = new Blob([buf], { type: 'audio/mpeg' });
+  const url = URL.createObjectURL(blob);
+  player.src = url;
+  player.style.display = 'block';
+  downloadLink.href = url;
+  downloadLink.download = 'suara.mp3';
+  actions.style.display = 'flex';
+  setStatus('Selesai. Suara siap diputar atau diunduh.', false);
+}
+
+async function generateConvo(key, modelId){
+  const charMap = getCharacterMap();
+  if(charMap.size === 0){ setStatus('Tambahkan minimal satu tokoh beserta suaranya.', true); return; }
+
+  let lines;
+  try{ lines = parseScript(); }
+  catch(err){ setStatus(err.message, true); return; }
+  if(lines.length === 0){ setStatus('Tulis naskah percakapan terlebih dahulu.', true); return; }
+
+  for(const line of lines){
+    if(!charMap.has(line.speaker.toLowerCase())){
+      setStatus(`Tokoh "${line.speaker}" belum ada di daftar tokoh di atas. Tambahkan tokohnya atau perbaiki nama di naskah.`, true);
+      return;
+    }
   }
-  if(!text){
-    setStatus('Tulis paragraf yang ingin diubah menjadi suara.', true);
-    return;
+
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const targetRate = 44100;
+  const gapSamples = Math.round(0.35 * targetRate);
+  const monoChunks = [];
+
+  for(let i=0;i<lines.length;i++){
+    const line = lines[i];
+    const character = charMap.get(line.speaker.toLowerCase());
+    setStatus(`<div class="bars"><span></span><span></span><span></span></div> Menyuarakan baris ${i+1} dari ${lines.length} (${character.name})...`, false);
+    const buf = await ttsRequest(key, character.voiceId, modelId, line.text);
+    const mono = await decodeToMono(buf, audioCtx, targetRate);
+    monoChunks.push(mono);
+    if(i < lines.length - 1) monoChunks.push(new Float32Array(gapSamples));
   }
+
+  const totalLen = monoChunks.reduce((sum, c) => sum + c.length, 0);
+  const combined = new Float32Array(totalLen);
+  let offset = 0;
+  for(const chunk of monoChunks){ combined.set(chunk, offset); offset += chunk.length; }
+
+  const wavBlob = encodeWav(combined, targetRate);
+  const url = URL.createObjectURL(wavBlob);
+  player.src = url;
+  player.style.display = 'block';
+  downloadLink.href = url;
+  downloadLink.download = 'percakapan.wav';
+  actions.style.display = 'flex';
+  setStatus(`Selesai. Percakapan dengan ${lines.length} baris siap diputar atau diunduh.`, false);
+  audioCtx.close();
+}
+
+generateBtn.addEventListener('click', async () => {
+  const key = apiKeyInput.value.trim();
+  const modelId = modelSelect.value;
+  if(!key){ setStatus('Isi kunci API ElevenLabs terlebih dahulu.', true); return; }
 
   generateBtn.disabled = true;
   actions.style.display = 'none';
   player.style.display = 'none';
-  setStatus('<div class="bars"><span></span><span></span><span></span></div> Membuat suara...', false);
 
   try{
-    const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
-      method: 'POST',
-      headers: {
-        'xi-api-key': key,
-        'Content-Type': 'application/json',
-        'Accept': 'audio/mpeg'
-      },
-      body: JSON.stringify({
-        text: text,
-        model_id: modelId,
-        voice_settings: { stability: 0.5, similarity_boost: 0.75 }
-      })
-    });
-
-    if(!res.ok){
-      let detail = '';
-      try{
-        const errJson = await res.json();
-        detail = errJson.detail && errJson.detail.message ? errJson.detail.message : JSON.stringify(errJson.detail || errJson);
-      }catch(e){
-        detail = `Kode status ${res.status}`;
-      }
-      throw new Error(detail);
-    }
-
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    player.src = url;
-    player.style.display = 'block';
-    downloadLink.href = url;
-    actions.style.display = 'flex';
-    setStatus('Selesai. Suara siap diputar atau diunduh.', false);
+    if(currentMode === 'single') await generateSingle(key, modelId);
+    else await generateConvo(key, modelId);
   }catch(err){
     setStatus('Gagal: ' + err.message + '. Jika ini masalah CORS/jaringan, coba jalankan dari server backend, bukan langsung dari peramban.', true);
   }finally{
