@@ -9,32 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink: #1B1F2A;
-    --surface: #242938;
-    --surface-2: #2E3446;
-    --amber: #E8B75D;
-    --amber-dim: #B98F45;
-    --text: #EDEEF2;
-    --muted: #8B92A6;
-    --line: #3A4157;
-    --danger: #E4796B;
+    --ink: #1B1F2A; --surface: #242938; --surface-2: #2E3446;
+    --amber: #E8B75D; --amber-dim: #B98F45; --text: #EDEEF2; --muted: #8B92A6;
+    --line: #3A4157; --danger: #E4796B; --good: #7FC79E;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
-  body{
-    background: var(--ink);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    display:flex;
-    justify-content:center;
-    padding: 48px 20px 80px;
-  }
-  .wrap{
-    width:100%;
-    max-width: 640px;
-  }
-  header{ margin-bottom: 40px; }
+  body{ background: var(--ink); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display:flex; justify-content:center; padding: 48px 20px 80px; }
+  .wrap{ width:100%; max-width: 640px; }
+  header{ margin-bottom: 32px; }
   .eyebrow-row{ display:flex; align-items:center; gap:10px; margin-bottom: 18px; }
   .wave-mark{ display:flex; align-items:flex-end; gap:3px; height: 20px; }
   .wave-mark span{ display:block; width:3px; background: var(--amber); border-radius: 2px; animation: idle-wave 2.4s ease-in-out infinite; }
@@ -61,6 +44,7 @@
   .row > div{flex:1;}
   .hint{ font-size: 12.5px; color: var(--muted); margin-top: 7px; line-height: 1.5; }
   .hint a{ color: var(--amber); }
+  .hint.good{ color: var(--good); }
   button{
     width:100%; background: var(--amber); color: #1B1200; border: none; border-radius: 9px;
     padding: 14px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
@@ -78,18 +62,22 @@
   .bars span:nth-child(3){height:65%;animation-delay:.3s;}
   audio{ width:100%; margin-top: 18px; display:none; }
   .actions{ display:flex; gap:10px; margin-top: 12px; display:none; }
-  .actions a{ flex:1; text-align:center; padding: 10px; border-radius: 8px; border: 1px solid var(--line); color: var(--text); text-decoration:none; font-size: 13.5px; }
-  .actions a:hover{ border-color: var(--amber); }
+  .actions a, .actions button{ flex:1; text-align:center; padding: 10px; border-radius: 8px; border: 1px solid var(--line); color: var(--text); text-decoration:none; font-size: 13.5px; background:transparent; width:auto; }
+  .actions a:hover, .actions button:hover{ border-color: var(--amber); }
   .charcount{ text-align:right; font-size:12px; color: var(--muted); margin-top:6px; }
   .tag-row{ display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
   .tag-btn{ width:auto; background: var(--surface-2); color: var(--text); border: 1px solid var(--line); border-radius: 20px; padding: 6px 13px; font-size: 12.5px; font-weight: 500; cursor:pointer; }
   .tag-btn:hover{ border-color: var(--amber); color: var(--amber); }
   code{ background: var(--surface-2); padding: 1px 6px; border-radius: 5px; font-size: 12px; }
 
-  .mode-toggle{ display:flex; gap:8px; margin-bottom: 20px; background: var(--surface); border:1px solid var(--line); border-radius:11px; padding:5px; }
-  .mode-btn{ flex:1; background:transparent; color:var(--muted); border:none; border-radius:8px; padding:11px; font-size:14px; font-weight:600; cursor:pointer; }
-  .mode-btn.active{ background: var(--amber); color:#1B1200; }
-  .mode-btn:not(.active):hover{ color: var(--text); }
+  .toggle-group{ display:flex; gap:8px; margin-bottom: 14px; background: var(--surface); border:1px solid var(--line); border-radius:11px; padding:5px; }
+  .toggle-btn{ flex:1; background:transparent; color:var(--muted); border:none; border-radius:8px; padding:11px; font-size:13.5px; font-weight:600; cursor:pointer; }
+  .toggle-btn.active{ background: var(--amber); color:#1B1200; }
+  .toggle-btn:not(.active):hover{ color: var(--text); }
+
+  .badge{ display:inline-block; font-size:11px; font-weight:600; padding:2px 8px; border-radius:20px; margin-left:6px; vertical-align:middle; }
+  .badge.free{ background: rgba(127,199,158,0.18); color: var(--good); }
+  .badge.paid{ background: rgba(232,183,93,0.18); color: var(--amber); }
 
   .char-row{ display:flex; gap:8px; margin-bottom: 10px; align-items:center; }
   .char-row .char-name{ flex: 0 0 34%; }
@@ -98,6 +86,10 @@
   .char-remove:hover{ border-color: var(--danger); color: var(--danger); }
   .add-char-btn{ background: transparent; border: 1px dashed var(--line); color: var(--muted); margin-top: 4px; }
   .add-char-btn:hover{ border-color: var(--amber); color: var(--amber); }
+
+  .slider-row{ display:flex; align-items:center; gap:10px; }
+  .slider-row input[type="range"]{ flex:1; }
+  .slider-row span{ font-size:12.5px; color: var(--muted); width:34px; text-align:right; }
 </style>
 </head>
 <body>
@@ -107,28 +99,53 @@
       <div class="wave-mark"><span></span><span></span><span></span><span></span><span></span></div>
     </div>
     <h1>Ubah paragraf jadi suara</h1>
-    <p>Tempelkan teks atau tulis naskah percakapan, pilih suara Bahasa Indonesia, dan dengarkan hasilnya — didukung oleh ElevenLabs. Kunci API kamu hanya dipakai di peramban ini dan tidak disimpan di server mana pun.</p>
+    <p>Tempelkan teks atau tulis naskah percakapan, pilih suara Bahasa Indonesia, dan dengarkan hasilnya.</p>
   </header>
 
-  <div class="mode-toggle">
-    <button type="button" class="mode-btn active" id="modeSingleBtn">Satu Suara</button>
-    <button type="button" class="mode-btn" id="modeConvoBtn">Percakapan (banyak tokoh)</button>
+  <div class="toggle-group">
+    <button type="button" class="toggle-btn active" id="sourceBrowserBtn">Browser <span class="badge free">GRATIS</span></button>
+    <button type="button" class="toggle-btn" id="sourceElevenBtn">ElevenLabs <span class="badge paid">BERBAYAR</span></button>
+  </div>
+
+  <div class="toggle-group">
+    <button type="button" class="toggle-btn active" id="modeSingleBtn">Satu Suara</button>
+    <button type="button" class="toggle-btn" id="modeConvoBtn">Percakapan (banyak tokoh)</button>
   </div>
 
   <section>
-    <div class="field">
-      <label for="apiKey">Kunci API ElevenLabs</label>
-      <input type="password" id="apiKey" placeholder="sk_..." autocomplete="off">
-      <div class="hint">Belum punya? Ambil gratis di <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank" rel="noopener">elevenlabs.io</a> (tersedia kuota gratis bulanan).</div>
+    <!-- ELEVENLABS-ONLY FIELDS -->
+    <div id="elevenFields" style="display:none;">
+      <div class="field">
+        <label for="apiKey">Kunci API ElevenLabs</label>
+        <input type="password" id="apiKey" placeholder="sk_..." autocomplete="off">
+        <div class="hint">Belum punya? Ambil di <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank" rel="noopener">elevenlabs.io</a>. Suara dari Voice Library/kloningan butuh paket berbayar (minimal Starter) agar bisa dipakai lewat API.</div>
+      </div>
+      <div class="field">
+        <label for="modelSelect">Kualitas</label>
+        <select id="modelSelect">
+          <option value="eleven_multilingual_v2">Multibahasa (disarankan)</option>
+          <option value="eleven_turbo_v2_5">Turbo — lebih cepat</option>
+          <option value="eleven_v3">Eleven v3 — bisa diberi emosi</option>
+        </select>
+      </div>
     </div>
 
-    <div class="field">
-      <label for="modelSelect">Kualitas</label>
-      <select id="modelSelect">
-        <option value="eleven_multilingual_v2">Multibahasa (disarankan)</option>
-        <option value="eleven_turbo_v2_5">Turbo — lebih cepat</option>
-        <option value="eleven_v3">Eleven v3 — bisa diberi emosi</option>
-      </select>
+    <!-- BROWSER-ONLY HINT -->
+    <div id="browserFields">
+      <div class="field">
+        <div class="hint" id="browserVoiceStatus">Memeriksa suara Bahasa Indonesia yang tersedia di perangkat ini...</div>
+      </div>
+      <div class="field">
+        <label>Kecepatan &amp; nada (untuk membedakan gaya bicara)</label>
+        <div class="row">
+          <div>
+            <div class="slider-row"><input type="range" id="rateSlider" min="0.6" max="1.6" step="0.05" value="1"><span id="rateVal">1.0x</span></div>
+          </div>
+          <div>
+            <div class="slider-row"><input type="range" id="pitchSlider" min="0.5" max("1.8"/* placeholder */ max="1.8" step="0.05" value="1"><span id="pitchVal">1.0</span></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- MODE: SATU SUARA -->
@@ -136,9 +153,8 @@
       <div class="field">
         <label for="voiceSelect">Suara</label>
         <select id="voiceSelect" disabled>
-          <option value="">Masukkan kunci API untuk memuat suara</option>
+          <option value="">Memuat...</option>
         </select>
-        <div class="hint">Hanya suara Bahasa Indonesia yang ditampilkan, dimuat otomatis dari perpustakaan ElevenLabs setelah kunci API diisi.</div>
       </div>
 
       <div class="field">
@@ -150,7 +166,7 @@
       <div class="field" id="emotionPanel" style="display:none;">
         <label>Sisipkan tag emosi (khusus Eleven v3)</label>
         <div class="tag-row" id="tagRow"></div>
-        <div class="hint">Klik salah satu untuk menyisipkan di posisi kursor, lalu edit sesuai kalimatnya. Contoh: <code>[bahagia] Akhirnya sampai juga!</code></div>
+        <div class="hint">Klik salah satu untuk menyisipkan di posisi kursor. Contoh: <code>[bahagia] Akhirnya sampai juga!</code></div>
       </div>
     </div>
 
@@ -169,15 +185,16 @@
 Budi: Baik, kamu sendiri?">Ani: Halo, apa kabar hari ini?
 Budi: Baik sekali, terima kasih sudah bertanya.
 Ani: Senang mendengarnya!</textarea>
-        <div class="hint">Satu baris untuk satu ucapan, format: <code>Nama: isi dialog</code>. Jeda singkat otomatis ditambahkan di antar baris.</div>
+        <div class="hint">Satu baris untuk satu ucapan, format: <code>Nama: isi dialog</code>.</div>
       </div>
     </div>
 
-    <button id="generateBtn">Ubah jadi Suara</button>
+    <button id="generateBtn">Putar Suara</button>
     <div class="status" id="status"></div>
     <audio id="player" controls></audio>
     <div class="actions" id="actions">
       <a id="downloadLink" download="suara.wav">Unduh Audio</a>
+      <button type="button" id="stopBtn" style="display:none;">Hentikan</button>
     </div>
   </section>
 </div>
@@ -194,21 +211,36 @@ const statusEl = document.getElementById('status');
 const player = document.getElementById('player');
 const actions = document.getElementById('actions');
 const downloadLink = document.getElementById('downloadLink');
+const stopBtn = document.getElementById('stopBtn');
 const singleMode = document.getElementById('singleMode');
 const convoMode = document.getElementById('convoMode');
 const modeSingleBtn = document.getElementById('modeSingleBtn');
 const modeConvoBtn = document.getElementById('modeConvoBtn');
+const sourceBrowserBtn = document.getElementById('sourceBrowserBtn');
+const sourceElevenBtn = document.getElementById('sourceElevenBtn');
+const elevenFields = document.getElementById('elevenFields');
+const browserFields = document.getElementById('browserFields');
+const browserVoiceStatus = document.getElementById('browserVoiceStatus');
 const charList = document.getElementById('charList');
 const addCharBtn = document.getElementById('addCharBtn');
 const emotionPanel = document.getElementById('emotionPanel');
 const tagRow = document.getElementById('tagRow');
+const rateSlider = document.getElementById('rateSlider');
+const pitchSlider = document.getElementById('pitchSlider');
+const rateVal = document.getElementById('rateVal');
+const pitchVal = document.getElementById('pitchVal');
 
 let currentMode = 'single';
-let indonesianVoices = []; // {id, name}
+let currentSource = 'browser';
+let indonesianVoices = []; // ElevenLabs: {id, name}
+let browserVoices = []; // SpeechSynthesisVoice[]
 
 function updateCharcount(){ charcount.textContent = textInput.value.length; }
 textInput.addEventListener('input', updateCharcount);
 updateCharcount();
+
+rateSlider.addEventListener('input', () => rateVal.textContent = parseFloat(rateSlider.value).toFixed(2) + 'x');
+pitchSlider.addEventListener('input', () => pitchVal.textContent = parseFloat(pitchSlider.value).toFixed(2));
 
 const EMOTION_TAGS = ['[bahagia]', '[sedih]', '[bersemangat]', '[marah]', '[berbisik]', '[tertawa]', '[menghela napas]', '[ragu-ragu]', '[lega]'];
 EMOTION_TAGS.forEach(tag => {
@@ -232,9 +264,22 @@ EMOTION_TAGS.forEach(tag => {
 });
 
 function toggleEmotionPanel(){
-  emotionPanel.style.display = (modelSelect.value === 'eleven_v3' && currentMode === 'single') ? 'block' : 'none';
+  emotionPanel.style.display = (currentSource === 'eleven' && modelSelect.value === 'eleven_v3' && currentMode === 'single') ? 'block' : 'none';
 }
 modelSelect.addEventListener('change', toggleEmotionPanel);
+
+function setStatus(msg, isError){
+  statusEl.className = 'status' + (isError ? ' error' : '');
+  statusEl.innerHTML = msg;
+}
+
+function resetOutputUI(){
+  actions.style.display = 'none';
+  stopBtn.style.display = 'none';
+  downloadLink.style.display = '';
+  player.style.display = 'none';
+  setStatus('', false);
+}
 
 function setMode(mode){
   currentMode = mode;
@@ -242,36 +287,57 @@ function setMode(mode){
   convoMode.style.display = mode === 'convo' ? 'block' : 'none';
   modeSingleBtn.classList.toggle('active', mode === 'single');
   modeConvoBtn.classList.toggle('active', mode === 'convo');
-  generateBtn.textContent = mode === 'single' ? 'Ubah jadi Suara' : 'Buat Percakapan';
-  actions.style.display = 'none';
-  player.style.display = 'none';
-  setStatus('', false);
+  resetOutputUI();
   toggleEmotionPanel();
 }
 modeSingleBtn.addEventListener('click', () => setMode('single'));
 modeConvoBtn.addEventListener('click', () => setMode('convo'));
 
-function setStatus(msg, isError){
-  statusEl.className = 'status' + (isError ? ' error' : '');
-  statusEl.innerHTML = msg;
+function setSource(source){
+  currentSource = source;
+  elevenFields.style.display = source === 'eleven' ? 'block' : 'none';
+  browserFields.style.display = source === 'browser' ? 'block' : 'none';
+  sourceBrowserBtn.classList.toggle('active', source === 'browser');
+  sourceElevenBtn.classList.toggle('active', source === 'eleven');
+  generateBtn.textContent = source === 'browser' ? 'Putar Suara' : (currentMode === 'single' ? 'Ubah jadi Suara' : 'Buat Percakapan');
+  resetOutputUI();
+  toggleEmotionPanel();
+  if(source === 'browser'){
+    refreshAllVoiceSelects();
+  } else {
+    if(indonesianVoices.length === 0 && apiKeyInput.value.trim()) loadElevenVoices();
+    refreshAllVoiceSelects();
+  }
+}
+sourceBrowserBtn.addEventListener('click', () => setSource('browser'));
+sourceElevenBtn.addEventListener('click', () => setSource('eleven'));
+
+function activeVoiceList(){
+  if(currentSource === 'browser'){
+    return browserVoices.map((v, i) => ({ id: String(i), name: v.name + ' (' + v.lang + ')' }));
+  }
+  return indonesianVoices;
 }
 
-function renderVoiceOptions(selectEl, keepValue){
-  const prev = keepValue !== undefined ? keepValue : selectEl.value;
+function renderVoiceOptions(selectEl){
+  const prev = selectEl.value;
+  const list = activeVoiceList();
   selectEl.innerHTML = '';
-  if(!indonesianVoices.length){
-    selectEl.innerHTML = '<option value="">Belum ada suara dimuat</option>';
+  if(!list.length){
+    selectEl.innerHTML = currentSource === 'browser'
+      ? '<option value="">Tidak ada suara Indonesia di perangkat ini</option>'
+      : '<option value="">Masukkan kunci API untuk memuat suara</option>';
     selectEl.disabled = true;
     return;
   }
-  indonesianVoices.forEach(v => {
+  list.forEach(v => {
     const opt = document.createElement('option');
     opt.value = v.id;
     opt.textContent = v.name;
     selectEl.appendChild(opt);
   });
   selectEl.disabled = false;
-  if(prev && indonesianVoices.some(v => v.id === prev)) selectEl.value = prev;
+  if(prev && list.some(v => v.id === prev)) selectEl.value = prev;
 }
 
 function refreshAllVoiceSelects(){
@@ -304,15 +370,32 @@ addCharacterRow('Ani');
 addCharacterRow('Budi');
 addCharBtn.addEventListener('click', () => addCharacterRow(''));
 
-async function loadVoices(){
+// ---------- BROWSER (Web Speech API) VOICES ----------
+function loadBrowserVoices(){
+  const all = speechSynthesis.getVoices();
+  browserVoices = all.filter(v => v.lang && v.lang.toLowerCase().startsWith('id'));
+  if(browserVoices.length){
+    browserVoiceStatus.className = 'hint good';
+    browserVoiceStatus.textContent = `Ditemukan ${browserVoices.length} suara Bahasa Indonesia bawaan perangkat ini. Gratis, tanpa kunci API.`;
+  } else {
+    browserVoiceStatus.className = 'hint error';
+    browserVoiceStatus.textContent = 'Tidak ditemukan suara Bahasa Indonesia bawaan di perangkat/browser ini. Coba Chrome versi terbaru, atau gunakan opsi ElevenLabs.';
+  }
+  if(currentSource === 'browser') refreshAllVoiceSelects();
+}
+if('speechSynthesis' in window){
+  speechSynthesis.onvoiceschanged = loadBrowserVoices;
+  loadBrowserVoices();
+} else {
+  browserVoiceStatus.className = 'hint error';
+  browserVoiceStatus.textContent = 'Browser ini tidak mendukung suara bawaan (Web Speech API). Coba Chrome, Edge, atau Safari terbaru.';
+}
+
+// ---------- ELEVENLABS VOICES ----------
+async function loadElevenVoices(){
   const key = apiKeyInput.value.trim();
   if(!key) return;
-
-  voiceSelect.disabled = true;
-  voiceSelect.innerHTML = '<option value="">Memuat suara Bahasa Indonesia...</option>';
-
   const collected = new Map();
-
   try{
     const ownRes = await fetch('https://api.elevenlabs.io/v1/voices', { headers: { 'xi-api-key': key } });
     if(ownRes.ok){
@@ -325,31 +408,23 @@ async function loadVoices(){
       });
     }
   }catch(e){ /* lanjut */ }
-
   try{
     const libRes = await fetch('https://api.elevenlabs.io/v1/shared-voices?language=id&page_size=100', { headers: { 'xi-api-key': key } });
     if(libRes.ok){
       const libData = await libRes.json();
       (libData.voices || []).forEach(v => {
         if(!v.language || v.language === 'id'){
-          const label = v.name + (v.accent ? ' — ' + v.accent : '');
-          collected.set(v.voice_id, label);
+          collected.set(v.voice_id, v.name + (v.accent ? ' — ' + v.accent : ''));
         }
       });
     }
   }catch(e){ /* lanjut */ }
-
   indonesianVoices = Array.from(collected.entries()).map(([id, name]) => ({ id, name }));
-
-  if(indonesianVoices.length){
-    refreshAllVoiceSelects();
-  } else {
-    voiceSelect.innerHTML = '<option value="">Tidak ditemukan suara Bahasa Indonesia untuk kunci ini</option>';
-    document.querySelectorAll('.char-voice').forEach(sel => { sel.innerHTML = '<option value="">Tidak ada suara</option>'; sel.disabled = true; });
-  }
+  if(currentSource === 'eleven') refreshAllVoiceSelects();
 }
-apiKeyInput.addEventListener('change', loadVoices);
+apiKeyInput.addEventListener('change', loadElevenVoices);
 
+// ---------- ELEVENLABS TTS ----------
 async function ttsRequest(key, voiceId, modelId, text){
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
     method: 'POST',
@@ -358,10 +433,8 @@ async function ttsRequest(key, voiceId, modelId, text){
   });
   if(!res.ok){
     let detail = '';
-    try{
-      const errJson = await res.json();
-      detail = errJson.detail && errJson.detail.message ? errJson.detail.message : JSON.stringify(errJson.detail || errJson);
-    }catch(e){ detail = `Kode status ${res.status}`; }
+    try{ const errJson = await res.json(); detail = errJson.detail && errJson.detail.message ? errJson.detail.message : JSON.stringify(errJson.detail || errJson); }
+    catch(e){ detail = `Kode status ${res.status}`; }
     throw new Error(detail);
   }
   return await res.arrayBuffer();
@@ -371,24 +444,12 @@ function encodeWav(samples, sampleRate){
   const buffer = new ArrayBuffer(44 + samples.length * 2);
   const view = new DataView(buffer);
   function writeString(offset, str){ for(let i=0;i<str.length;i++) view.setUint8(offset+i, str.charCodeAt(i)); }
-  writeString(0, 'RIFF');
-  view.setUint32(4, 36 + samples.length * 2, true);
-  writeString(8, 'WAVE');
-  writeString(12, 'fmt ');
-  view.setUint32(16, 16, true);
-  view.setUint16(20, 1, true);
-  view.setUint16(22, 1, true);
-  view.setUint32(24, sampleRate, true);
-  view.setUint32(28, sampleRate * 2, true);
-  view.setUint16(32, 2, true);
-  view.setUint16(34, 16, true);
-  writeString(36, 'data');
-  view.setUint32(40, samples.length * 2, true);
+  writeString(0, 'RIFF'); view.setUint32(4, 36 + samples.length * 2, true); writeString(8, 'WAVE');
+  writeString(12, 'fmt '); view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true);
+  view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate * 2, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true);
+  writeString(36, 'data'); view.setUint32(40, samples.length * 2, true);
   let offset = 44;
-  for(let i=0;i<samples.length;i++, offset+=2){
-    const s = Math.max(-1, Math.min(1, samples[i]));
-    view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-  }
+  for(let i=0;i<samples.length;i++, offset+=2){ const s = Math.max(-1, Math.min(1, samples[i])); view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true); }
   return new Blob([view], { type: 'audio/wav' });
 }
 
@@ -411,10 +472,7 @@ async function decodeToMono(arrayBuffer, audioCtx, targetRate){
     const newLen = Math.round(mono.length * ratio);
     const resampled = new Float32Array(newLen);
     for(let i=0;i<newLen;i++){
-      const srcIdx = i / ratio;
-      const i0 = Math.floor(srcIdx);
-      const i1 = Math.min(i0+1, mono.length-1);
-      const frac = srcIdx - i0;
+      const srcIdx = i / ratio; const i0 = Math.floor(srcIdx); const i1 = Math.min(i0+1, mono.length-1); const frac = srcIdx - i0;
       resampled[i] = mono[i0] * (1-frac) + mono[i1] * frac;
     }
     mono = resampled;
@@ -446,45 +504,37 @@ function getCharacterMap(){
   return map;
 }
 
-async function generateSingle(key, modelId){
+async function generateSingleEleven(key, modelId){
   const text = textInput.value.trim();
   const voiceId = voiceSelect.value;
-  if(!voiceId){ setStatus('Pilih suara Bahasa Indonesia terlebih dahulu (masukkan kunci API agar daftar termuat).', true); return; }
+  if(!voiceId){ setStatus('Pilih suara terlebih dahulu.', true); return; }
   if(!text){ setStatus('Tulis paragraf yang ingin diubah menjadi suara.', true); return; }
-
   setStatus('<div class="bars"><span></span><span></span><span></span></div> Membuat suara...', false);
   const buf = await ttsRequest(key, voiceId, modelId, text);
   const blob = new Blob([buf], { type: 'audio/mpeg' });
   const url = URL.createObjectURL(blob);
-  player.src = url;
-  player.style.display = 'block';
-  downloadLink.href = url;
-  downloadLink.download = 'suara.mp3';
+  player.src = url; player.style.display = 'block';
+  downloadLink.href = url; downloadLink.download = 'suara.mp3'; downloadLink.style.display = '';
+  stopBtn.style.display = 'none';
   actions.style.display = 'flex';
   setStatus('Selesai. Suara siap diputar atau diunduh.', false);
 }
 
-async function generateConvo(key, modelId){
+async function generateConvoEleven(key, modelId){
   const charMap = getCharacterMap();
   if(charMap.size === 0){ setStatus('Tambahkan minimal satu tokoh beserta suaranya.', true); return; }
-
   let lines;
-  try{ lines = parseScript(); }
-  catch(err){ setStatus(err.message, true); return; }
+  try{ lines = parseScript(); } catch(err){ setStatus(err.message, true); return; }
   if(lines.length === 0){ setStatus('Tulis naskah percakapan terlebih dahulu.', true); return; }
-
   for(const line of lines){
     if(!charMap.has(line.speaker.toLowerCase())){
-      setStatus(`Tokoh "${line.speaker}" belum ada di daftar tokoh di atas. Tambahkan tokohnya atau perbaiki nama di naskah.`, true);
-      return;
+      setStatus(`Tokoh "${line.speaker}" belum ada di daftar tokoh di atas.`, true); return;
     }
   }
-
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   const targetRate = 44100;
   const gapSamples = Math.round(0.35 * targetRate);
   const monoChunks = [];
-
   for(let i=0;i<lines.length;i++){
     const line = lines[i];
     const character = charMap.get(line.speaker.toLowerCase());
@@ -494,41 +544,112 @@ async function generateConvo(key, modelId){
     monoChunks.push(mono);
     if(i < lines.length - 1) monoChunks.push(new Float32Array(gapSamples));
   }
-
   const totalLen = monoChunks.reduce((sum, c) => sum + c.length, 0);
   const combined = new Float32Array(totalLen);
   let offset = 0;
   for(const chunk of monoChunks){ combined.set(chunk, offset); offset += chunk.length; }
-
   const wavBlob = encodeWav(combined, targetRate);
   const url = URL.createObjectURL(wavBlob);
-  player.src = url;
-  player.style.display = 'block';
-  downloadLink.href = url;
-  downloadLink.download = 'percakapan.wav';
+  player.src = url; player.style.display = 'block';
+  downloadLink.href = url; downloadLink.download = 'percakapan.wav'; downloadLink.style.display = '';
+  stopBtn.style.display = 'none';
   actions.style.display = 'flex';
   setStatus(`Selesai. Percakapan dengan ${lines.length} baris siap diputar atau diunduh.`, false);
   audioCtx.close();
 }
 
+// ---------- BROWSER TTS ----------
+function generateSingleBrowser(){
+  const text = textInput.value.trim();
+  if(!text){ setStatus('Tulis paragraf yang ingin diputar.', true); return; }
+  if(!browserVoices.length){ setStatus('Tidak ada suara Bahasa Indonesia ditemukan di perangkat ini.', true); return; }
+  const idx = parseInt(voiceSelect.value, 10);
+  const voice = browserVoices[idx];
+  if(!voice){ setStatus('Pilih suara terlebih dahulu.', true); return; }
+
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.voice = voice;
+  utter.lang = voice.lang || 'id-ID';
+  utter.rate = parseFloat(rateSlider.value);
+  utter.pitch = parseFloat(pitchSlider.value);
+
+  player.style.display = 'none';
+  downloadLink.style.display = 'none';
+  stopBtn.style.display = 'block';
+  actions.style.display = 'flex';
+  setStatus('<div class="bars"><span></span><span></span><span></span></div> Sedang berbicara...', false);
+
+  utter.onend = () => { setStatus('Selesai diputar.', false); stopBtn.style.display = 'none'; };
+  utter.onerror = (e) => { setStatus('Gagal memutar suara: ' + e.error, true); stopBtn.style.display = 'none'; };
+  speechSynthesis.speak(utter);
+}
+
+function generateConvoBrowser(){
+  if(!browserVoices.length){ setStatus('Tidak ada suara Bahasa Indonesia ditemukan di perangkat ini.', true); return; }
+  const charMap = getCharacterMap();
+  if(charMap.size === 0){ setStatus('Tambahkan minimal satu tokoh beserta suaranya.', true); return; }
+  let lines;
+  try{ lines = parseScript(); } catch(err){ setStatus(err.message, true); return; }
+  if(lines.length === 0){ setStatus('Tulis naskah percakapan terlebih dahulu.', true); return; }
+  for(const line of lines){
+    if(!charMap.has(line.speaker.toLowerCase())){
+      setStatus(`Tokoh "${line.speaker}" belum ada di daftar tokoh di atas.`, true); return;
+    }
+  }
+
+  speechSynthesis.cancel();
+  player.style.display = 'none';
+  downloadLink.style.display = 'none';
+  stopBtn.style.display = 'block';
+  actions.style.display = 'flex';
+  setStatus(`<div class="bars"><span></span><span></span><span></span></div> Memutar percakapan (${lines.length} baris)...`, false);
+
+  lines.forEach((line, i) => {
+    const character = charMap.get(line.speaker.toLowerCase());
+    const voice = browserVoices[parseInt(character.voiceId, 10)];
+    const utter = new SpeechSynthesisUtterance(line.text);
+    utter.voice = voice;
+    utter.lang = (voice && voice.lang) || 'id-ID';
+    utter.rate = parseFloat(rateSlider.value);
+    utter.pitch = parseFloat(pitchSlider.value);
+    if(i === lines.length - 1){
+      utter.onend = () => { setStatus('Selesai memutar percakapan.', false); stopBtn.style.display = 'none'; };
+    }
+    speechSynthesis.speak(utter);
+  });
+}
+
+stopBtn.addEventListener('click', () => {
+  speechSynthesis.cancel();
+  setStatus('Dihentikan.', false);
+  stopBtn.style.display = 'none';
+});
+
 generateBtn.addEventListener('click', async () => {
+  if(currentSource === 'browser'){
+    if(currentMode === 'single') generateSingleBrowser();
+    else generateConvoBrowser();
+    return;
+  }
   const key = apiKeyInput.value.trim();
   const modelId = modelSelect.value;
   if(!key){ setStatus('Isi kunci API ElevenLabs terlebih dahulu.', true); return; }
-
   generateBtn.disabled = true;
   actions.style.display = 'none';
   player.style.display = 'none';
-
   try{
-    if(currentMode === 'single') await generateSingle(key, modelId);
-    else await generateConvo(key, modelId);
+    if(currentMode === 'single') await generateSingleEleven(key, modelId);
+    else await generateConvoEleven(key, modelId);
   }catch(err){
     setStatus('Gagal: ' + err.message + '. Jika ini masalah CORS/jaringan, coba jalankan dari server backend, bukan langsung dari peramban.', true);
   }finally{
     generateBtn.disabled = false;
   }
 });
+
+setSource('browser');
+setMode('single');
 </script>
 </body>
 </html>
